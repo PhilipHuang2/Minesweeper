@@ -46,7 +46,7 @@ public void setup ()
 public void setBombs()
 {
     int bombRow, bombCol;
-    while(bombs.size() < NUM_ROWS*NUM_COLS*.35f)
+    while(bombs.size() < NUM_ROWS*NUM_COLS*.05f)
     {
         bombRow = (int)(Math.random()*NUM_ROWS);
         bombCol = (int)(Math.random()*NUM_COLS);
@@ -108,6 +108,26 @@ public class MSButton
     public void mousePressed () 
     {
         clicked = true;
+        if(keyPressed)
+            marked = !marked;
+        else if(bombs.contains(this))
+            displayLosingMessage();
+         else if (countBombs(r,c) > 0)
+            setLabel(""+countBombs(r,c));
+        else 
+        {
+            for(int row = -1; r < 1; r++)
+            {
+                for(int col = -1; c < 1; c++)
+                {
+                    if(isValid(row + r, col+c) && clicked== false)
+                        buttons[row + r][col + c].mousePressed();
+                       
+            }
+        }
+        }
+            
+        
         //your code here
     }
 
