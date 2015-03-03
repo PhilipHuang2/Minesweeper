@@ -1,5 +1,3 @@
-
-
 import de.bezier.guido.*;
 public static final int NUM_ROWS = 20;
 public static final int NUM_COLS = 20;
@@ -98,17 +96,25 @@ public class MSButton
             setLabel(""+countBombs(r,c));
         else 
         {
-            for(int row = -1; r < 1; r++)
-            {
-                for(int col = -1; c < 1; c++)
-                {
-                    if(isValid(row + r, col+c) && clicked== false)
-                        buttons[row + r][col + c].mousePressed();
-                       
-            }
+            if(isValid(r - 1, c-1)&& clicked == false)
+                buttons[r-1][c-1].mousePressed();
+             if(isValid(r - 1, c)&& clicked == false)
+                buttons[r-1][c].mousePressed(); 
+            if(isValid(r - 1, c+1)&& clicked == false)
+                buttons[r-1][c+1].mousePressed(); 
+
+            if(isValid(r , c-1)&& clicked == false)
+                buttons[r][c-1].mousePressed(); 
+            if(isValid(r , c+1)&& clicked == false)
+                buttons[r][c+1].mousePressed(); 
+
+            if(isValid(r + 1, c-1)&& clicked == false)
+                buttons[r+1][c-1].mousePressed(); 
+            if(isValid(r + 1, c)&& clicked == false)
+                buttons[r+1][c].mousePressed(); 
+            if(isValid(r + 1, c+1)&& clicked == false)
+                buttons[r+1][c+1].mousePressed(); 
         }
-        }
-            
         
         //your code here
     }
@@ -142,15 +148,24 @@ public class MSButton
     public int countBombs(int row, int col)
     {
         int numBombs = 0;
-        for(int r = -1; r < 1; r++)
-        {
-            for(int c = -1; c < 1; c++)
-            {
-               if(isValid(row+r, col+c))
-                   if(bombs.contains(buttons[row+r][col+c]))
-                       numBombs++;
-            }
-        }
+            if(isValid(row - 1, col-1)&& clicked == false)
+                numBombs++;
+             if(isValid(row - 1, col)&& clicked == false)
+                numBombs++;
+            if(isValid(row - 1, col+1)&& clicked == false)
+                numBombs++;
+
+            if(isValid(row , col-1)&& clicked == false)
+                numBombs++; 
+            if(isValid(row , col+1)&& clicked == false)
+                numBombs++;
+
+            if(isValid(row + 1, col-1)&& clicked == false)
+                numBombs++; 
+            if(isValid(row + 1, col)&& clicked == false)
+                numBombs++;
+            if(isValid(row + 1, col+1)&& clicked == false)
+                numBombs++; 
         return numBombs;
     }
 }
