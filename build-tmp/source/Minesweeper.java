@@ -62,16 +62,21 @@ public void draw ()
 }
 public boolean isWon()
 {
-    //your code here
+    for(int r = 0; r < NUM_ROWS; r++)
+    {
+        for(int c = 0; c < NUM_COLS; c++)
+            if(!bombs.contains(buttons[r][c]) && buttons[r][c].clicked != true)
+               return true;
+    }
     return false;
 }
 public void displayLosingMessage()
 {
-    //your code here
+    System.out.println("You Lose");
 }
 public void displayWinningMessage()
 {
-    //your code here
+    System.out.println("You Win");
 }
 
 public class MSButton
@@ -108,27 +113,27 @@ public class MSButton
         clicked = true;
         if(keyPressed)
             marked = !marked;
-        else if(bombs.contains(this))
+        else if(bombs.contains(this)) //done
             displayLosingMessage();
-         else if (countBombs(r,c) > 0)
+         else if (countBombs(r,c) > 0)  //done
             setLabel(""+countBombs(r,c));
         else 
         {
-            if(isValid(r - 1, c-1)&& clicked == false)
+            if(isValid(r - 1, c-1) && buttons[r-1][c-1].clicked == false)
                 buttons[r-1][c-1].mousePressed();
-             if(isValid(r - 1, c)&& clicked == false)
+             if(isValid(r - 1, c)&& buttons[r-1][c].clicked == false)
                 buttons[r-1][c].mousePressed(); 
-            if(isValid(r - 1, c+1)&& clicked == false)
+            if(isValid(r - 1, c+1)&& buttons[r-1][c+1].clicked == false)
                 buttons[r-1][c+1].mousePressed(); 
 
-            if(isValid(r , c-1)&& clicked == false)
+            if(isValid(r , c-1)&& buttons[r][c-1].clicked == false)
                 buttons[r][c-1].mousePressed(); 
-            if(isValid(r , c+1)&& clicked == false)
+            if(isValid(r , c+1)&& buttons[r][c+1].clicked == false)
                 buttons[r][c+1].mousePressed(); 
 
-            if(isValid(r + 1, c-1)&& clicked == false)
+            if(isValid(r + 1, c-1)&& buttons[r+1][c-1].clicked == false)
                 buttons[r+1][c-1].mousePressed(); 
-            if(isValid(r + 1, c)&& clicked == false)
+            if(isValid(r + 1, c)&& buttons[r+1][c].clicked == false)
                 buttons[r+1][c].mousePressed(); 
             if(isValid(r + 1, c+1)&& clicked == false)
                 buttons[r+1][c+1].mousePressed(); 
@@ -163,27 +168,27 @@ public class MSButton
                 return true;
        return false;
     }
-    public int countBombs(int row, int col)
+    public int countBombs(int row, int col) 
     {
         int numBombs = 0;
-            if(isValid(row - 1, col-1)&& clicked == false)
-                numBombs++;
-             if(isValid(row - 1, col)&& clicked == false)
-                numBombs++;
-            if(isValid(row - 1, col+1)&& clicked == false)
-                numBombs++;
+        if(isValid(row - 1, col-1) && bombs.contains(buttons[row-1][col-1]))
+            numBombs++;
+        if(isValid(row - 1, col)   && bombs.contains(buttons[row-1][col]))
+            numBombs++;
+        if(isValid(row - 1, col+1) && bombs.contains(buttons[row-1][col+1]))
+            numBombs++;
 
-            if(isValid(row , col-1)&& clicked == false)
-                numBombs++; 
-            if(isValid(row , col+1)&& clicked == false)
-                numBombs++;
+        if(isValid(row , col-1)    && bombs.contains(buttons[row][col-1]))
+            numBombs++; 
+        if(isValid(row , col+1)    && bombs.contains(buttons[row][col+1]))
+            numBombs++;
 
-            if(isValid(row + 1, col-1)&& clicked == false)
-                numBombs++; 
-            if(isValid(row + 1, col)&& clicked == false)
-                numBombs++;
-            if(isValid(row + 1, col+1)&& clicked == false)
-                numBombs++; 
+        if(isValid(row + 1, col-1) && bombs.contains(buttons[row+1][col-1]))
+            numBombs++; 
+        if(isValid(row + 1, col)   && bombs.contains(buttons[row+1][col]))
+            numBombs++;
+        if(isValid(row + 1, col+1) && bombs.contains(buttons[row+1][col+1]))
+            numBombs++; 
         return numBombs;
     }
 }
