@@ -40,7 +40,8 @@ public void setBombs()
 public void draw ()
 {
     
-    background( 0 );
+    background( 255,0,0 );
+    text("You Lose =(", height/2, width/2);
     if(isWon())
         displayWinningMessage();
     
@@ -50,18 +51,39 @@ public boolean isWon()
     for(int r = 0; r < NUM_ROWS; r++)
     {
         for(int c = 0; c < NUM_COLS; c++)
-            if(!bombs.contains(buttons[r][c]) && buttons[r][c].clicked == true  )
-               nonMines++;
+            if(!bombs.contains(buttons[r][c]) && buttons[r][c].clicked == false)
+               return false;
     }
-    return false;
+    return true;
 }
 public void displayLosingMessage()
-{
-    System.out.println("You Lose");
+{   
+    for(int r = 0; r < NUM_ROWS; r++)
+    {
+        for(int c = 0; c < NUM_COLS; c++)
+            if(bombs.contains(buttons[r][c]) && !buttons[r][c].isClicked())
+               buttons[r][c].clicked = true;
+    }
+
+    buttons[9][6].setLabel("Y");
+    buttons[9][7].setLabel("O");
+    buttons[9][8].setLabel("U");
+    buttons[9][9].setLabel("");
+    buttons[9][10].setLabel("L");
+    buttons[9][11].setLabel("O");
+    buttons[9][12].setLabel("S");
+    buttons[9][13].setLabel("E");
+
 }
 public void displayWinningMessage()
 {
-    System.out.println("You Win");
+    buttons[9][6].setLabel("W");
+    buttons[9][7].setLabel("I");
+    buttons[9][8].setLabel("N");
+    buttons[9][9].setLabel("N");
+    buttons[9][10].setLabel("E");
+    buttons[9][11].setLabel("R");
+    buttons[9][12].setLabel("!");
 }
 
 public class MSButton
@@ -144,6 +166,7 @@ public class MSButton
     }
     public void setLabel(String newLabel)
     {
+
         label = newLabel;
     }
     public boolean isValid(int r, int c)
